@@ -47,6 +47,7 @@ public class Game extends JPanel implements ActionListener {
 	private int score; //player's score
 	private int life; // player's life
 	private int spawned; //number of aliens that are dead (either killed or just out of the screen)
+	private int limit; // 「制限時間」長時間するならlongに編集します 多分いらん
 	
 	private boolean ingame; //this boolean is set to false when the player loses
 	private boolean inboss; // this boolean is set to true during the boss phase
@@ -60,7 +61,7 @@ public class Game extends JPanel implements ActionListener {
 	private ArrayList<Bonus> bonus; //list of visible bonuses
 	
 	private JPanel scorepan; //contains the score and the number of lives for the current game
-	private JLabel scorelab; //current score of the player
+	private JLabel limitlab; //残り時間表示
 	private JLabel lifelab; //current number of lives of the player
 	
 	private boolean paused; //this boolean is set to true when the game is paused
@@ -111,6 +112,7 @@ public class Game extends JPanel implements ActionListener {
 		score = 0;
 		life = 3; //the player starts the game with 3 lives
 		spawned = 0;
+		limit = 10000; // とりあえず10秒の制限時間
 		inboss = false;
 		paused = false;
 		
@@ -188,12 +190,12 @@ public class Game extends JPanel implements ActionListener {
 		
 		c.insets = new Insets(0,0,0,80);
 		
-		scorelab = new JLabel("Score : " + score);
-		Myfont.setMyfont(scorelab);
+		limitlab = new JLabel("Limit : " + (limit / 1000));
+		Myfont.setMyfont(limitlab);
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 1;
 		c.anchor = GridBagConstraints.NORTH;
-		scorepan.add(scorelab, c);
+		scorepan.add(limitlab, c);
 		lifelab = new JLabel("Life : " + life);
 		Myfont.setMyfont(lifelab);
 		if(craft.isImmune()) lifelab.setForeground(Color.white);
@@ -343,7 +345,8 @@ public class Game extends JPanel implements ActionListener {
 		
 		updateBackground();
 		updateMissiles();
-        updateCraft();
+		updateCraft();
+		updateLimmit();
         
         if(!inboss){ //these sprite only appears in the normal mode, when there is no boss
 	        updateAliens();
@@ -724,6 +727,18 @@ public class Game extends JPanel implements ActionListener {
 			spawned++;
 			}
 		
+	}
+
+	public void updateLimmit() {
+		if (!paused) {
+			limit -= DELAY;
+			if (limit % 1000 < DELAY) {
+				updateScorepan();
+			}
+		}
+		if (limit < 0) {
+			ingame = false;
+		}
 	}
 	
 	/*
