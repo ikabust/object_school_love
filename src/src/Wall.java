@@ -13,7 +13,7 @@ public class Wall extends Sprite{
 	
 	public void initWall(){
 		
-		loadImage("/" + Frame.getTheme() + "_wall.png");
+		loadImage("/Boy.png");
 		getImageDimensions();
 		loadSoundName("explosion.wav");
 		
