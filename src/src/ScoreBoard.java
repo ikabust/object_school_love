@@ -34,28 +34,28 @@ import javax.swing.JPanel;
  */
 @SuppressWarnings("serial")
 public class ScoreBoard extends JPanel implements ActionListener{
-	
+
 	private ArrayList<Score> scorelist; //list of different scores
-	
+	public int now_score;
 	private static final String fscore = "score.dat"; //the name of the file.dat which contains the list
-	
+
 	private boolean newRecord = false; //set to true if a new record is set at the end of a game
 	private int index = 0; //to know where the new score is (to make the font red)
-	
+
 	ObjectOutputStream oos = null; //object to read the score file
 	ObjectInputStream ois = null; //object to write in the score file
-	
+
 	public ScoreBoard(){
-		
+
 		super(new GridBagLayout());
-		
+
 		scorelist = new ArrayList<Score>();
-		
+
 		/*
 		 * Initialization of the score file if it's the first time the game is launched.
 		 * There is two initial scores to beat.
 		 */
-		File scoreFile = new File(fscore);
+		/*File scoreFile = new File(fscore);
 		if(!scoreFile.exists()){
 			try{
 				scoreFile.createNewFile();
@@ -63,20 +63,20 @@ public class ScoreBoard extends JPanel implements ActionListener{
 				scorelist.add(new Score("Looser", 0));
 				updateScoreFile();
 			}catch(IOException e){
-				System.out.print("impossible de créer le fichier");
+				System.out.print("impossible de crï¿½er le fichier");
 			}
-		}
-		
+		}*/
+
 		afficherScore();
 	}
-	
+
 	public ArrayList<Score> getScores(){
-		
+
 		loadScoreFile();
 		return scorelist;
-		
+
 	}
-	
+
 	/*
 	 * This method is used to sort the scores in the scorelist
 	 */
@@ -84,13 +84,13 @@ public class ScoreBoard extends JPanel implements ActionListener{
 		ScoreComparator comparator = new ScoreComparator();
 		Collections.sort(scorelist,comparator);
 	}
-	
+
 	/*
 	 * This function add a new score in the list.
 	 * The board only print the first five better scores (newRecord set to false on the other hand)
 	 */
 	public void addScore(String playerName, int score){
-		
+
 		loadScoreFile();
 		sort();
 		Iterator<Score> i = scorelist.iterator();
@@ -107,29 +107,29 @@ public class ScoreBoard extends JPanel implements ActionListener{
 						newRecord = false;
 					break;
 				}
-			}	
-		
+			}
+
 		afficherScore();
 	}
-	
+
 	/*
 	 * The index returned is used to know where in the list the score was added in order
 	 * to make its font red if its a new best score.
 	 * The score objects are compared (a score object is a player name and a score).
 	 */
 	public int getIndex(Score score){
-		
+
 		int i =0;
-		
+
 		for(i=0; i<scorelist.size(); i++){
 			if(scorelist.get(i).equals(score))
 				return i;
 		}
-		
+
 		return 0;
-		
+
 	}
-	
+
 	/*
 	 * Code taken from this website :
 	 * http://forum.codecall.net/topic/50071-making-a-simple-high-score-system/
@@ -137,7 +137,7 @@ public class ScoreBoard extends JPanel implements ActionListener{
 	 */
 	@SuppressWarnings("unchecked")
 	public void loadScoreFile(){
-		
+
 		try{
 			ois = new ObjectInputStream(new FileInputStream(fscore));
 			scorelist = (ArrayList<Score>) ois.readObject();
@@ -157,16 +157,16 @@ public class ScoreBoard extends JPanel implements ActionListener{
         		System.out.println("[Laad] IO Error: " + e.getMessage());
         	}
         }
-		
+
 	}
-	
+
 	/*
 	 * Code taken from this website :
 	 * http://forum.codecall.net/topic/50071-making-a-simple-high-score-system/
 	 * This method load the arraylist from scorelist object and write it in the score file.
 	 */
 	public void updateScoreFile(){
-		
+
 		try{
 			oos = new ObjectOutputStream(new FileOutputStream(fscore));
 			oos.writeObject(scorelist);
@@ -185,29 +185,34 @@ public class ScoreBoard extends JPanel implements ActionListener{
         	}
         }
 	}
-	
+
 	/*
 	 * The first five scores are displayed at the end of the game.
 	 * They are JLabel managed by a GridBagLayout.
 	 */
 	public void afficherScore(){
-		
+
 		this.removeAll();
-		
+
 		String score;
 		ArrayList<Score> scores;
 		scores = getScores();
-		
+
 		int i = 0;
 		int x = scores.size();
-		
+
 		GridBagConstraints c = new GridBagConstraints();
-		
+
 		c.insets = new Insets(10,10,10,10);
-		
+		JLabel jl = new JLabel(String.valueOf(now_score));
+		Myfont.setMyfont(jl);
+		c.gridx = 1;
+		c.gridy = 5;
+		this.add(jl, c);
+/*
 		while(i < x && i < 5){
 			score = scores.get(i).toString();
-			JLabel jl = new JLabel(score);
+			JLabel jl = new JLabel(String.valueOf(now_score));
 			Myfont.setMyfont(jl);
 			if(i == index && newRecord) //the new record is in red to better see it
 				jl.setForeground(Color.RED);
@@ -215,15 +220,16 @@ public class ScoreBoard extends JPanel implements ActionListener{
 	        c.gridy = i+5;
 			this.add(jl, c);
 			i++;
-		}
-		
-		JLabel js = new JLabel("Best Scores");
+
+		}*/
+
+		JLabel js = new JLabel("YOURE RECORD");
 		Myfont.setMyfont(js);
 		c.gridx = 1;
 		c.gridy = 1;
 		this.add(js, c);
-		
-		if(newRecord && index < 5){ //the new record message is displayed only if there actually is a new record
+
+		/*if(newRecord && index < 5){ //the new record message is displayed only if there actually is a new record
 			JLabel jr = new JLabel("NEW RECORD");
 			jr.setForeground(Color.BLUE);
 			Myfont.setMyfont(jr);
@@ -231,64 +237,55 @@ public class ScoreBoard extends JPanel implements ActionListener{
 			c.gridx = 1;
 			c.gridy = 3;
 			this.add(jr, c);
-			
+
 			newRecord = false;
-		}
-		
-		
+		}*/
+
+
 		c.insets = new Insets(10,10,10,10);
-		
+
 		Button tryagainB = new Button("Try Again ?");
 		tryagainB.setName("tryagainB");
 		tryagainB.addActionListener(this);
 		c.gridy = 11;
 		this.add(tryagainB, c);
-		
-		Button optionsButton = new Button("Options");
-		optionsButton.setName("optionsButton");
-		optionsButton.addActionListener(this);
-		c.gridy = 12;
-		this.add(optionsButton, c);
 	}
-	
-	
+
+
 	/*
 	 * This method is called when the player wants to delete his best scores.
 	 * All the content of the scorelist object is deleted then the sample scores are added and the file is updated.
 	 */
-	public void deleteScores() {
-		
+	/*public void deleteScores() {
+
 		scorelist.removeAll(scorelist);
 		scorelist.add(new Score("winner", 100));
 		scorelist.add(new Score("Looser", 0));
 		updateScoreFile();
-		
-	}
-	
+
+	}*/
+
 
 	@Override
 	public void actionPerformed(ActionEvent e){
-		
+
 		if(((Button)e.getSource()).getName().equals("tryagainB"))
 			Frame.getFrame().doTryAgain();
-		else if(((Button)e.getSource()).getName().equals("optionsButton")){
-			Frame.getFrame().doOptions();
-			Frame.previousmenu = false;
-		}
-		
+
 	}
-	
+
 	/*
 	 * Code taken from this page :
 	 * http://forum.codecall.net/topic/50071-making-a-simple-high-score-system/
 	 * This comparator sorts the scores in descending order.
 	 */
 	class ScoreComparator implements Comparator<Score>{
-		
+
 		public int compare(Score s1, Score s2){
 			int score1 = s1.getScore();
 			int score2 = s2.getScore();
-			
+			now_score = score2;
+
 			if(score1>score2)
 				return -1;
 			else if(score2>score1)
@@ -296,27 +293,26 @@ public class ScoreBoard extends JPanel implements ActionListener{
 			else
 				return 0;
 		}
-		
 	}
-	
+
 	/*
 	 * This method is used to paint the background image of the menu
 	 * The image change according to the theme
 	 */
 	@Override
 	protected void paintComponent(Graphics g){
-		
+
 		super.paintComponent(g);
-		ImageIcon ii = new ImageIcon(getClass().getResource("/" + Frame.getTheme() + "_back.png"));
+		ImageIcon ii = new ImageIcon(getClass().getResource("/surprise15.png"));
         Image image = ii.getImage();
 		g.drawImage(image, 0, 0, null);
-		
-		
+
+
 		//a transparent white square is drawn on the background image to make it transparent
 		g.setColor(new Color(255,255,255,200));
 		g.fillRect(0, 0, 500, 500);
-		
+
 	}
-	
+
 
 }
