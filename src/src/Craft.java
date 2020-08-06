@@ -98,12 +98,6 @@ public class Craft extends Sprite {
 		if (key == KeyEvent.VK_RIGHT) {
 			dx = 0;
 		}
-
-		if (key == KeyEvent.VK_UP)
-			dy = 0;
-		
-		if (key == KeyEvent.VK_DOWN)
-			dy = 0;
 		
 		if (key == KeyEvent.VK_SPACE) {
 			jumpTimer = 0;
