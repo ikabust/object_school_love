@@ -112,7 +112,7 @@ public class Game extends JPanel implements ActionListener {
 		score = 0;
 		life = 3; //the player starts the game with 3 lives
 		spawned = 0;
-		limit = 10000; // とりあえず10秒の制限時間
+		limit = 30000; // とりあえず10秒の制限時間
 		inboss = false;
 		paused = false;
 		
@@ -251,6 +251,7 @@ public class Game extends JPanel implements ActionListener {
 		 * The x position of the background image is updated every time the frame refresh.
 		 * In order to repeat it, the image is also painted at the end of itself to make a perfect loop.
 		 */
+		// 背景動かし
 		g.drawImage(back.getImage(), -back.getPosX(), 0, this);
 		
 		if (back.getPosX() + 500 > back.getWidth()) {

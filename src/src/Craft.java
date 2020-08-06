@@ -1,5 +1,6 @@
 package src;
 
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -35,7 +36,10 @@ public class Craft extends Sprite {
 	private void initCraft(){
 		
 		missiles = new ArrayList<>();
-		loadImage("/" + Frame.getTheme() + "_red.png");
+		loadImage("/Girl.png");
+		width *= 0.5;
+		height *= 0.5;
+		//image = image.getScaledInstance((int) (width * 0.5), -1, Image.SCALE_SMOOTH);
 		getImageDimensions();
 		
 		missilestate = 0;
