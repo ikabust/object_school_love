@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 eclipse.preferences.version=1
 version=1
+=======
+description.autobuilding=false
+eclipse.preferences.version=1
+version=1
+>>>>>>> d58bcd3e1ba6ed19fc541f7eb96cb5a3484061be

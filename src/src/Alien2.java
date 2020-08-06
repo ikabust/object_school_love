@@ -19,9 +19,9 @@ public class Alien2 extends Sprite{
 		
 		i = 0;
 		life = 3;
-		loadImage("/" + Frame.getTheme() + "_alien2.png");
+		loadImage("/Dog.png");
 		getImageDimensions();
-		loadSoundName("gyarados.wav");
+		// loadSoundName("gyarados.wav");
 		
 	}
 	/*
