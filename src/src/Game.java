@@ -347,7 +347,7 @@ public class Game extends JPanel implements ActionListener {
 		updateBackground();
 		updateMissiles();
 		updateCraft();
-		updateLimmit();
+		updateLimit();
         
         if(!inboss){ //these sprite only appears in the normal mode, when there is no boss
 	         updateAliens();
@@ -730,7 +730,7 @@ public class Game extends JPanel implements ActionListener {
 		
 	}
 
-	public void updateLimmit() {
+	public void updateLimit() {
 		if (!paused) {
 			limit -= DELAY;
 			if (limit % 1000 < DELAY) {
@@ -763,8 +763,10 @@ public class Game extends JPanel implements ActionListener {
             		craft.setImmune(false); //if the craft was immune, the player doesn't lose a life
             		updateScorepan();}
             	else{
-            		life--; //the craft was not immune, the player loses a life
-            		updateScorepan();
+//            		life--; //the craft was not immune, the player loses a life
+            		limit -= 2000;
+//            		updateScorepan();
+            		updateLimit();
             		craft.downShoot(); //and the missile rank is downgraded
             		if(craft.getShoot() > 15)
                     	craft.setShoot(2);
@@ -782,7 +784,9 @@ public class Game extends JPanel implements ActionListener {
         			craft.setImmune(false);
         			updateScorepan();}
         		else{
-        			life -= 2; //the player lose two lives if he touches this kind of alien
+        			limit -= 5000;
+        			updateLimit();
+//        			life -= 2; //the player lose two lives if he touches this kind of alien
         			craft.downShoot();
         			if(craft.getShoot() > 15)
                     	craft.setShoot(2);
