@@ -15,7 +15,7 @@ public class Background {
 	// プレイヤーの動きによってスピードを変えたら良さそう
 	public Background(){
 		
-		ImageIcon ii = new ImageIcon(getClass().getResource("/fond5.png"));
+		ImageIcon ii = new ImageIcon(getClass().getResource("/scool.jpg"));
         image = ii.getImage();
         
         speed = 1;

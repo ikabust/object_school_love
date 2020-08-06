@@ -35,7 +35,7 @@ import javax.swing.event.AncestorListener;
 public class Game extends JPanel implements ActionListener {
 	
 	private final int ICRAFT_X = 30; // x coordinate of the craft. can't be changed by the player
-	private final int ICRAFT_Y = 142; // initial y coordinate of the craft
+	private final int ICRAFT_Y = 230; // initial y coordinate of the craft
 	private final int DELAY = 15; //delay between each refreshing the frame, in millisecond (nearly 60FPS)
 		
 	private Timer timer;    // 経過時間を測る
@@ -226,7 +226,7 @@ public class Game extends JPanel implements ActionListener {
 			else if(posY < 244) posY = 203;
 			else posY = 264;
 		
-			aliens.add(new Alien(posX, posY));
+			// aliens.add(new Alien(posX, posY));
 		}
 		
 		Alien.setSpeed(3);
@@ -349,11 +349,11 @@ public class Game extends JPanel implements ActionListener {
 		updateLimmit();
         
         if(!inboss){ //these sprite only appears in the normal mode, when there is no boss
-	        updateAliens();
+	        // updateAliens();
 	        updateWalls();
 	        updateLives();
 	        updateBonus();
-	        updateAliens2();
+	        // updateAliens2();
         }
         
         if(inboss) //in boss phase, there only is the boss and its missiles 
@@ -454,8 +454,7 @@ public class Game extends JPanel implements ActionListener {
 			craft.vis = false;
 			ingame = false;
 		}
-		
-		
+		craft.gravity();
 		if(craft.isVisible())
 			craft.move();
 	}
@@ -514,8 +513,8 @@ public class Game extends JPanel implements ActionListener {
 		//to move away
 		//boucle boss
 		if(craft.getShoot()>0 && spawned > 20 && score < 30){
-			inboss = true;
-			initBoss();
+			// inboss = true;
+			// initBoss();
 			return;
 		}
 		
@@ -537,11 +536,11 @@ public class Game extends JPanel implements ActionListener {
 			int posY = rand.nextInt(B_HEIGHT);
 			int posX = rand.nextInt(B_WIDTH) + 400;
 						
-			if(posY < 76 && ennemies[0][2] == 0) aliens.add(new Alien(posX, 20)); //the condition on the enemies array is used to avoid an alien spawning on a line if there is already a wall in it
-			else if(posY > 76 && posY < 132 && ennemies[1][2] == 0) aliens.add(new Alien(posX, 81));
-			else if(posY > 132 && posY < 188 && ennemies[2][2] == 0) aliens.add(new Alien(posX, 142));
-			else if(posY > 188 && posY < 244 && ennemies[3][2] == 0) aliens.add(new Alien(posX, 203));
-			else if(posY > 244 && posY < 305 && ennemies[4][2] == 0) aliens.add(new Alien(posX, 264));
+			// if(posY < 76 && ennemies[0][2] == 0) aliens.add(new Alien(posX, 20)); //the condition on the enemies array is used to avoid an alien spawning on a line if there is already a wall in it
+			// else if(posY > 76 && posY < 132 && ennemies[1][2] == 0) aliens.add(new Alien(posX, 81));
+			// else if(posY > 132 && posY < 188 && ennemies[2][2] == 0) aliens.add(new Alien(posX, 142));
+			// else if(posY > 188 && posY < 244 && ennemies[3][2] == 0) aliens.add(new Alien(posX, 203));
+			// else if(posY > 244 && posY < 305 && ennemies[4][2] == 0) aliens.add(new Alien(posX, 264));
 		
 		}
 	}
@@ -581,11 +580,11 @@ public class Game extends JPanel implements ActionListener {
 			int posY = rand.nextInt(B_HEIGHT);
 			int posX = rand.nextInt(B_WIDTH) + 400;
 			
-			if(posY < 76 && ennemies[0][2] == 0) walls.add(new Wall(posX, 20));
-			else if(posY > 76 && posY < 132 && ennemies[1][2] == 0) walls.add(new Wall(posX, 81));
-			else if(posY > 132 && posY < 188 && ennemies[2][2] == 0) walls.add(new Wall(posX, 142));
-			else if(posY > 188 && posY < 244 && ennemies[3][2] == 0) walls.add(new Wall(posX, 203));
-			else if(posY > 244 && posY < 305 && ennemies[4][2] == 0) walls.add(new Wall(posX, 264));
+			// if(posY < 76 && ennemies[0][2] == 0) walls.add(new Wall(posX, 20));
+			// else if(posY > 76 && posY < 132 && ennemies[1][2] == 0) walls.add(new Wall(posX, 81));
+			// else if(posY > 132 && posY < 188 && ennemies[2][2] == 0) walls.add(new Wall(posX, 142));
+			// else if(posY > 188 && posY < 244 && ennemies[3][2] == 0) walls.add(new Wall(posX, 203));
+			// else if(posY > 244 && posY < 305 && ennemies[4][2] == 0) walls.add(new Wall(posX, 264));
 				
 				if(posY < 76) ennemies[0][2] = 1;
 				else if(posY < 132) ennemies[1][2] = 1;
@@ -703,7 +702,8 @@ public class Game extends JPanel implements ActionListener {
 			else if(posY < 244) posY = 203;
 			else posY = 264;
 		
-			aliens2.add(new Alien2(posX, posY));}
+			// aliens2.add(new Alien2(posX, posY));
+		}
 		
 		for (int i = 0; i <aliens2.size(); i++){
 			Alien2 a = aliens2.get(i);

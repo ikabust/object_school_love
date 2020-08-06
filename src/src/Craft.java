@@ -13,7 +13,14 @@ public class Craft extends Sprite {
 	
 	private static Craft craft;
 	
-	private int dy; //shift along y axis
+	private int dx; //キャラの位置
+	private double dy;
+	private int xv = 5;
+	private int yv = 10;
+	private double gravity = 0.4;
+	private boolean jumping = false;
+	private int jumpTimer = 0;
+
 	private ArrayList<Missile> missiles; //list of visible missiles
 	
 	private boolean immune = false; //boolean for the immunity state, depending of the immune bonus
@@ -42,17 +49,19 @@ public class Craft extends Sprite {
 	 */
 	public void move(){
 		
+		x += dx;
+		if (x < 20) {x = 20;} 
+		if (x > 430) {x = 430;}
+
 		y += dy;
-		if(y<20) y=20;
-		if(y>264) y = 264;
+		if (y < 20) {y=20;}
+		if (y > 264) {y = 264;}
 		
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public ArrayList getMissiles(){
-		
 		return missiles;
-		
 	}
 	
 	/*
@@ -62,13 +71,18 @@ public class Craft extends Sprite {
 		// 横移動に書き換える
 		int key = e.getKeyCode();
 		
-		if (key == KeyEvent.VK_UP)
-			dy = -10;
-		
-		if (key == KeyEvent.VK_DOWN)
-			dy = 10;
-	
-		
+		if (key == KeyEvent.VK_LEFT) {
+			dx = -3;
+		}
+		if (key == KeyEvent.VK_RIGHT) {
+			dx = 3;
+		}
+		if (key == KeyEvent.VK_SPACE) {
+			jumpTimer += 1;
+			if (!jumping) {
+				dy = -10;
+			}
+		}		
 	}
 	
 	/*
@@ -78,16 +92,33 @@ public class Craft extends Sprite {
 		// ジャンプ処理追加しよう
 		int key = e.getKeyCode();
 		
+		if (key == KeyEvent.VK_LEFT) {
+			dx = 0;
+		}
+		if (key == KeyEvent.VK_RIGHT) {
+			dx = 0;
+		}
+
 		if (key == KeyEvent.VK_UP)
 			dy = 0;
 		
 		if (key == KeyEvent.VK_DOWN)
 			dy = 0;
 		
-		if (key == KeyEvent.VK_SPACE)
-			fire();
-		
+		if (key == KeyEvent.VK_SPACE) {
+			jumpTimer = 0;
+		}
 	}
+
+	public void gravity() { 
+		if (y < 264) {
+			jumping = true;
+			dy += gravity;
+		} else {
+			jumping = false;
+		}
+	}
+
 	/*
 	 * Add missiles to the ArrayList of missiles when the spacebar is released
 	 * There is 7 different states for the missiles
