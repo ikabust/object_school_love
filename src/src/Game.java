@@ -112,7 +112,7 @@ public class Game extends JPanel implements ActionListener {
 		score = 0;
 		life = 3; //the player starts the game with 3 lives
 		spawned = 0;
-		limit = 10000; // とりあえず10秒の制限時間
+		limit = 30000; // とりあえず10秒の制限時間
 		inboss = false;
 		paused = false;
 		
@@ -251,6 +251,7 @@ public class Game extends JPanel implements ActionListener {
 		 * The x position of the background image is updated every time the frame refresh.
 		 * In order to repeat it, the image is also painted at the end of itself to make a perfect loop.
 		 */
+		// 背景動かし
 		g.drawImage(back.getImage(), -back.getPosX(), 0, this);
 		
 		if (back.getPosX() + 500 > back.getWidth()) {
@@ -559,21 +560,21 @@ public class Game extends JPanel implements ActionListener {
 		if(spawn > 995 && walls.isEmpty() && craft.getShoot() > 3){
 			int rd = (int)(Math.random()*5); //this determines the line where there will be no wall
 			
-			if(rd != 0){
-				walls.add(new Wall(400, 20));
-				ennemies[0][2] = 1;} //when a wall is in a line, it is 	registered in the enemies array
-			if(rd != 1) {
-				walls.add(new Wall(400, 81));
-				ennemies[1][2] = 1;}
-			if(rd != 2) {
-				walls.add(new Wall(400, 142));
-				ennemies[2][2] = 1;}
-			if(rd != 3) {
-				walls.add(new Wall(400, 203));
-				ennemies[3][2] = 1;}
-			if(rd != 4) {
-				walls.add(new Wall(400, 264));
-				ennemies[4][2] = 1;}
+			//if(rd != 0){
+			//	walls.add(new Wall(400, 20));
+			//	ennemies[0][2] = 1;} //when a wall is in a line, it is 	registered in the enemies array
+			//if(rd != 1) {
+			//	walls.add(new Wall(400, 81));
+			//	ennemies[1][2] = 1;}
+			//if(rd != 2) {
+			//	walls.add(new Wall(400, 142));
+			//	ennemies[2][2] = 1;}
+			//if(rd != 3) {
+			//	walls.add(new Wall(400, 203));
+			//	ennemies[3][2] = 1;}
+			//if(rd != 4) {
+			//	walls.add(new Wall(400, 264));
+			//	ennemies[4][2] = 1;}
 		}
 		
 		if(spawn > 990 && walls.size()<=2){
@@ -586,12 +587,12 @@ public class Game extends JPanel implements ActionListener {
 			// else if(posY > 188 && posY < 244 && ennemies[3][2] == 0) walls.add(new Wall(posX, 203));
 			// else if(posY > 244 && posY < 305 && ennemies[4][2] == 0) walls.add(new Wall(posX, 264));
 				
-				if(posY < 76) ennemies[0][2] = 1;
-				else if(posY < 132) ennemies[1][2] = 1;
-				else if(posY < 188) ennemies[2][2] = 1;
-				else if(posY < 244) ennemies[3][2] = 1;
-				else if(posY < 305) ennemies[4][2] = 1;
-			}
+			if(posY < 76) ennemies[0][2] = 1;
+			else if(posY < 132) ennemies[1][2] = 1;
+			else if(posY < 188) ennemies[2][2] = 1;
+			else if(posY < 244) ennemies[3][2] = 1;
+			else if(posY < 305) ennemies[4][2] = 1;
+		}
 		
 		for (int i = 0; i <walls.size(); i++){
 			Wall w = walls.get(i);

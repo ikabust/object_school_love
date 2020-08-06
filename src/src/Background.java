@@ -15,7 +15,7 @@ public class Background {
 	// プレイヤーの動きによってスピードを変えたら良さそう
 	public Background(){
 		
-		ImageIcon ii = new ImageIcon(getClass().getResource("/scool.jpg"));
+		ImageIcon ii = new ImageIcon(getClass().getResource("/Back.png"));
         image = ii.getImage();
         
         speed = 1;
@@ -30,33 +30,38 @@ public class Background {
 		
 	}
 	
-	 public Image getImage() {
-	        return image;
-	    }
+	public Image getImage() {
+	    return image;
+	}
+
+	//public void setEndImage() {
+	//	ImageIcon endii = new ImageIcon(getClass().getResource("/BackEnd.png"));
+	//	image = endii.getImage();
+	//}
 	 
-	 public int getPosX(){
+	public int getPosX() {
 		 
-		 return pos_x; 
+		return pos_x; 
 		 
-	 }
+	}
 	 
 	 /*
 	  * Increment of the x coordinate of the background
 	  */
 	 public void move(){
 		 
-		 if(pos_x>image.getWidth(null))
-			 pos_x = 0;
+		if(pos_x>image.getWidth(null))
+			pos_x = 0;
 			
 		pos_x += speed ;
 		 
-	 }
+	}
 	 
-	 public int getSpeed(){
-		 return speed;
-	 }
+	public int getSpeed(){
+		return speed;
+	}
 	 
-	 public void setSpeed(int speed){
+	public void setSpeed(int speed){
 		this.speed = speed;
-	 }
+	}
 }
