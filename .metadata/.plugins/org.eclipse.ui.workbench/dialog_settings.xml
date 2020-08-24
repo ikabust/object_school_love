@@ -1,0 +1,27 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a866d5bb6324854a6dfa5a03e0d1ed9c437be2a2
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.internal.QuickAccess">
+		<item value="-1" key="dialogHeight"/>
+		<item value="-1" key="dialogWidth"/>
+		<list key="textEntries">
+		</list>
+		<list key="orderedElements">
+		</list>
+		<list key="orderedProviders">
+		</list>
+		<list key="textArray">
+		</list>
+	</section>
+</section>
+<<<<<<< HEAD
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+</section>
+>>>>>>> d58bcd3e1ba6ed19fc541f7eb96cb5a3484061be
+=======
+>>>>>>> a866d5bb6324854a6dfa5a03e0d1ed9c437be2a2
