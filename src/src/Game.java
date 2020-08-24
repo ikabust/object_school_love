@@ -751,7 +751,8 @@ public class Game extends JPanel implements ActionListener {
         		}
         		else{
         			craft.setVisible(false); //the player lose the game if he touches a wall
-        			wall.playSound();
+					wall.playSound();
+					limit = 0;
         			ingame = false; //the game end
         		}
         	}
