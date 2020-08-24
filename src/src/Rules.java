@@ -86,7 +86,7 @@ public class Rules extends JPanel{
 		c.gridy = 3;
 		tab1.add(jinst3, c);
 
-		JLabel jinst4 = new JLabel("This game has a time limit.Aim for your goal!");
+		JLabel jinst4 = new JLabel("This game has a time limit.  Aim for your goal!");
 		Myfont.setMyfont(jinst4);
 		c.gridy = 4;
 		tab1.add(jinst4, c);
@@ -110,7 +110,7 @@ public class Rules extends JPanel{
 		c.gridx = 1;
 		tab2.add(jlab, c);
 
-		JLabel jlab2 = new JLabel("Dog: The more you bump into the dog \nthe more your time limit will approach.");
+		JLabel jlab2 = new JLabel("<html>Dog: The more you bump into the dog <br>the more your time limit will approach.<html>");
 		Myfont.setMyfont(jlab2);
 		c.anchor = GridBagConstraints.WEST;
 		c.gridy = 0;
