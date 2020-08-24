@@ -103,7 +103,7 @@ public class Rules extends JPanel{
 
 		c.insets = new Insets(0,0,5,15);
 
-		ImageIcon i1 = new ImageIcon(getClass().getResource("/" + Frame.getTheme() + "_bonus3rules.png"));
+		ImageIcon i1 = new ImageIcon(getClass().getResource("/Dog.png"));
 		JLabel jlab = new JLabel(i1);
 		c.fill = GridBagConstraints.BOTH;
 		c.gridy = 0;
@@ -117,7 +117,7 @@ public class Rules extends JPanel{
 		c.gridx = 2;
 		tab2.add(jlab2, c);
 
-		ImageIcon i2 = new ImageIcon(getClass().getResource("/" + Frame.getTheme() + "_bonus2rules.png"));
+		ImageIcon i2 = new ImageIcon(getClass().getResource("/Boy.png"));
 		JLabel jlab3 = new JLabel(i2);
 		c.gridy = 6;
 		c.gridx = 1;

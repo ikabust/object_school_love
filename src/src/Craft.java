@@ -1,5 +1,6 @@
 package src;
 
+
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public class Craft extends Sprite {
 	
 	private static Craft craft;
 	
-	private int dx; //キャラの位置
+	private int dx; //繧ｭ繝｣繝ｩ縺ｮ菴咲ｽｮ
 	private double dy;
 	private int xv = 5;
 	private int yv = 10;
@@ -71,7 +72,7 @@ public class Craft extends Sprite {
 	 * While the key is pressed, increments or decrements the y coordinate of the craft
 	 */
 	public void keyPressed(KeyEvent e){
-		// 横移動に書き換える
+		// 讓ｪ遘ｻ蜍輔↓譖ｸ縺肴鋤縺医ｋ
 		int key = e.getKeyCode();
 		
 		if (key == KeyEvent.VK_LEFT) {
@@ -92,7 +93,7 @@ public class Craft extends Sprite {
 	 * The fire method is only called on the release of the space key to avoid a flooding of missiles
 	 */
 	public void keyReleased(KeyEvent e){
-		// ジャンプ処理追加しよう
+		// 繧ｸ繝｣繝ｳ繝怜�ｦ逅�霑ｽ蜉�縺励ｈ縺�
 		int key = e.getKeyCode();
 		
 		if (key == KeyEvent.VK_LEFT) {
@@ -101,12 +102,6 @@ public class Craft extends Sprite {
 		if (key == KeyEvent.VK_RIGHT) {
 			dx = 0;
 		}
-
-		if (key == KeyEvent.VK_UP)
-			dy = 0;
-		
-		if (key == KeyEvent.VK_DOWN)
-			dy = 0;
 		
 		if (key == KeyEvent.VK_SPACE) {
 			jumpTimer = 0;
@@ -127,7 +122,7 @@ public class Craft extends Sprite {
 	 * There is 7 different states for the missiles
 	 * A switch is used to define the kind and the number of missiles to launch
 	 */
-	// 打つだからいらない？
+	// 謇薙▽縺�縺九ｉ縺�繧峨↑縺�ｼ�
 	public void fire(){
 		
 		switch(missilestate)
