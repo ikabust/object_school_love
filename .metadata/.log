@@ -387,6 +387,8 @@ Caused by: org.eclipse.core.internal.resources.ResourceException: Invalid projec
 	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.toExistingOrNewProject(SmartImportJob.java:552)
 	... 2 more
 >>>>>>> d58bcd3e1ba6ed19fc541f7eb96cb5a3484061be
+<<<<<<< HEAD
+=======
 !SESSION 2020-08-06 21:08:17.506 -----------------------------------------------
 eclipse.buildId=4.9.0.I20180906-0745
 java.version=14.0.1
@@ -1022,3 +1024,4 @@ org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 2; ドキュメン�
 	at org.eclipse.osgi.container.SystemModule.stop(SystemModule.java:205)
 	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule$1.run(EquinoxBundle.java:213)
 	at java.base/java.lang.Thread.run(Thread.java:832)
+>>>>>>> a866d5bb6324854a6dfa5a03e0d1ed9c437be2a2

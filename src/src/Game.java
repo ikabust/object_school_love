@@ -813,7 +813,7 @@ public class Game extends JPanel implements ActionListener {
         for(Life l : lives){
         	Rectangle rL = l.getBounds();
         	if(rC.intersects(rL)){
-        		life++; //if the player collect this bonus, he gets 1 life
+        		limit += 3000;
         		updateScorepan();
         		l.setVisible(false);
         		l.playSound();
