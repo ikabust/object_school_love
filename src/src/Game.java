@@ -58,7 +58,6 @@ public class Game extends JPanel implements ActionListener {
 	private ArrayList<Wall> walls; //list of visible walls
 	private ArrayList<Life> lives; //list of visible bonus lives
 	private ArrayList<Alien2> aliens2; //list of visible aliens2
-	// private ArrayList<Bonus> bonus; //list of visible bonuses
 	
 	private JPanel scorepan; //contains the score and the number of lives for the current game
 	private JLabel limitlab; //谿九ｊ譎る俣陦ｨ遉ｺ
@@ -461,7 +460,6 @@ public class Game extends JPanel implements ActionListener {
 		aliens2.removeAll(aliens2);
 		lives.removeAll(lives);
 		walls.removeAll(walls);
-		// bonus.removeAll(bonus);
 		
 		boss = new Boss(450,142);
 		
