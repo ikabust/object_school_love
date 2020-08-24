@@ -58,7 +58,7 @@ public class Craft extends Sprite {
 
 		y += dy;
 		if (y < 20) {y=20;}
-		if (y > 264) {y = 264;}
+		if (y > 240) {y = 240;}
 		
 	}
 	
@@ -108,7 +108,7 @@ public class Craft extends Sprite {
 	}
 
 	public void gravity() { 
-		if (y < 264) {
+		if (y < 240) {
 			jumping = true;
 			dy += gravity;
 		} else {

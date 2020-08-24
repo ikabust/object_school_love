@@ -366,7 +366,7 @@ public class Game extends JPanel implements ActionListener {
 		if(!ingame){
 			timer.stop();
 			Frame frame = Frame.getFrame();
-			frame.gameOver(score, spawned, life);
+			frame.gameOver(limit / 1000, spawned, life);
 			
 		}
 	}
@@ -751,7 +751,8 @@ public class Game extends JPanel implements ActionListener {
         		}
         		else{
         			craft.setVisible(false); //the player lose the game if he touches a wall
-        			wall.playSound();
+					wall.playSound();
+					limit = 0;
         			ingame = false; //the game end
         		}
         	}
