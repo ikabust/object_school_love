@@ -14,7 +14,7 @@ public class Life extends Sprite{
 	}
 	
 	public void initLife(){
-		loadImage("/" + Frame.getTheme() + "_life.png");
+		loadImage("/bread.png");
 		getImageDimensions();
 		loadSoundName(Frame.getTheme() + "_heal.wav");
 	}

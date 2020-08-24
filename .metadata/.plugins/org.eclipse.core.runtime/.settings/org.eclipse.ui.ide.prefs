@@ -4,7 +4,11 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
 >>>>>>>=d58bcd3e1ba6ed19fc541f7eb96cb5a3484061be
+<<<<<<< HEAD
 >>>>>>> origin/mainchara
+=======
+>>>>>>> a866d5bb6324854a6dfa5a03e0d1ed9c437be2a2
+>>>>>>> 6ff39a70f24cea0f7bb01d547659ef5ea9908b82
 PROBLEMS_FILTERS_MIGRATE=true
 eclipse.preferences.version=1
 platformState=1539340148377
@@ -19,4 +23,8 @@ quickStart=false
 tipsAndTricks=true
 >>>>>>> d58bcd3e1ba6ed19fc541f7eb96cb5a3484061be
 =======
+<<<<<<< HEAD
 >>>>>>> origin/mainchara
+=======
+>>>>>>> a866d5bb6324854a6dfa5a03e0d1ed9c437be2a2
+>>>>>>> 6ff39a70f24cea0f7bb01d547659ef5ea9908b82
