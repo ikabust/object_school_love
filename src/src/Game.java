@@ -763,9 +763,7 @@ public class Game extends JPanel implements ActionListener {
             		craft.setImmune(false); //if the craft was immune, the player doesn't lose a life
             		updateScorepan();}
             	else{
-//            		life--; //the craft was not immune, the player loses a life
             		limit -= 2000;
-//            		updateScorepan();
             		updateLimit();
             		craft.downShoot(); //and the missile rank is downgraded
             		if(craft.getShoot() > 15)
@@ -786,7 +784,6 @@ public class Game extends JPanel implements ActionListener {
         		else{
         			limit -= 5000;
         			updateLimit();
-//        			life -= 2; //the player lose two lives if he touches this kind of alien
         			craft.downShoot();
         			if(craft.getShoot() > 15)
                     	craft.setShoot(2);
