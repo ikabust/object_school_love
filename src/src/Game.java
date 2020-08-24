@@ -193,14 +193,14 @@ public class Game extends JPanel implements ActionListener {
 		c.gridx = 1;
 		c.anchor = GridBagConstraints.NORTH;
 		scorepan.add(limitlab, c);
-		lifelab = new JLabel("Life : " + life);
-		Myfont.setMyfont(lifelab);
-		if(craft.isImmune()) lifelab.setForeground(Color.white);
-		c.insets = new Insets(3,3,3,80);
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 0;
-		c.anchor = GridBagConstraints.NORTH;
-		scorepan.add(lifelab, c);
+		//lifelab = new JLabel("Life : " + life);
+		//Myfont.setMyfont(lifelab);
+		//if(craft.isImmune()) lifelab.setForeground(Color.white);
+		//c.insets = new Insets(3,3,3,80);
+		//c.fill = GridBagConstraints.BOTH;
+		//c.gridx = 0;
+		//c.anchor = GridBagConstraints.NORTH;
+		//scorepan.add(lifelab, c);
 		
 	}
 	
@@ -711,7 +711,8 @@ public class Game extends JPanel implements ActionListener {
             		updateScorepan();}
             	else{
             		limit -= 2000;
-            		updateLimit();
+					updateLimit();
+					updateScorepan();
             		craft.downShoot(); //and the missile rank is downgraded
             		if(craft.getShoot() > 15)
                     	craft.setShoot(2);
