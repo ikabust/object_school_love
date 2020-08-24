@@ -58,7 +58,6 @@ public class Game extends JPanel implements ActionListener {
 	private ArrayList<Wall> walls; //list of visible walls
 	private ArrayList<Life> lives; //list of visible bonus lives
 	private ArrayList<Alien2> aliens2; //list of visible aliens2
-	private ArrayList<Bonus> bonus; //list of visible bonuses
 	
 	private JPanel scorepan; //contains the score and the number of lives for the current game
 	private JLabel limitlab; //谿九ｊ譎る俣陦ｨ遉ｺ
@@ -125,13 +124,11 @@ public class Game extends JPanel implements ActionListener {
 		//initialization of the different speeds for the sprites
 		Alien.setSpeed(3);
 		Life.setSpeed(5);
-		Bonus.setSpeed(5);
 		
 		walls = new ArrayList<>();
 		lives = new ArrayList<>();
 		aliens = new ArrayList<>();
 		aliens2 = new ArrayList<>();
-		bonus = new ArrayList<>();
 		
 		initScorepan();
 
@@ -304,12 +301,6 @@ public class Game extends JPanel implements ActionListener {
         		g2d.drawImage(l.getImage(), l.getX(), l.getY(), this);
         }
         
-        //drawing of bonuses
-        for (Bonus b : bonus){
-        	if(b.isVisible())
-        		g2d.drawImage(b.getImage(), b.getX(), b.getY(), this);
-        }
-        
         //drawing of aliens2
         for (Alien2 a : aliens2){
         	if(a.isVisible())
@@ -353,7 +344,6 @@ public class Game extends JPanel implements ActionListener {
 	         updateAliens();
 	        updateWalls();
 	        updateLives();
-	        updateBonus();
 	        // updateAliens2();
         }
         
@@ -470,7 +460,6 @@ public class Game extends JPanel implements ActionListener {
 		aliens2.removeAll(aliens2);
 		lives.removeAll(lives);
 		walls.removeAll(walls);
-		bonus.removeAll(bonus);
 		
 		boss = new Boss(450,142);
 		
@@ -644,48 +633,6 @@ public class Game extends JPanel implements ActionListener {
 	}
 	
 	/*
-	 * Update of the bonus position.
-	 * The kind of bonus is randomly selected.
-	 * There is three kind of bonuses that spawn in certain conditions.
-	 */
-	public void updateBonus(){
-		
-		Random rand = new Random();
-		int spawn = rand.nextInt(1000);
-		
-		if(spawn > 995 && bonus.size() == 0){
-			int posY = rand.nextInt(B_HEIGHT);
-		
-			if(posY < 76) posY = 20;
-			else if(posY < 132) posY = 81;
-			else if(posY < 188) posY = 142;
-			else if(posY < 244) posY = 203;
-			else posY = 264;
-			
-			
-			Random rand2 = new Random();
-			int bonustype = rand2.nextInt(3);
-			if (bonustype == 1)
-				bonus.add(new Bonus(B_WIDTH, posY, 1));
-			else if(bonustype == 2 && craft.getShoot() < 20 && craft.getShoot() > 4) //this is the second kind of missile, obtainable after having the missile updated to the fourth rank
-				bonus.add(new Bonus(B_WIDTH, posY, 2));
-			else if(bonustype == 0 && !craft.isImmune()) //this bonus give immunity to the next damage. As long as the player preserve the immunity, this bonus will not spawn
-				bonus.add(new Bonus(B_WIDTH, posY, 3));
-				
-			
-		}
-		
-		for(int i = 0; i < bonus.size(); i++){
-			Bonus b = bonus.get(i);
-			if(b.isVisible())
-				b.move();
-			else
-				bonus.remove(i);
-		}
-		
-	}
-	
-	/*
 	 * Update of the position of the second kind of alien
 	 */
 	public void updateAliens2(){
@@ -817,25 +764,6 @@ public class Game extends JPanel implements ActionListener {
         		updateScorepan();
         		l.setVisible(false);
         		l.playSound();
-        	}
-        }
-        
-        //collision between the craft and the bonuses 
-        for(Bonus b : bonus){
-        	Rectangle rB = b.getBounds();
-        	if(rC.intersects(rB)){
-        		b.setVisible(false);
-        		if(b.getBonusType() == 2)
-        			craft.setShoot(20); //this is the second kind of missile
-        		else if(b.getBonusType() == 1){
-        			craft.upShoot(); //this updates the rank of the missiles 
-        			if(craft.getShoot() == 21)
-        				craft.setShoot(4); //the player can choose to downgrade the missile rank
-        			if(craft.getShoot() == 6)
-        				craft.setShoot(5);} //5 is the maximum rank for the missiles
-        		else{
-        			craft.setImmune(true); //set immunity to the next collision
-        			updateScorepan();}
         	}
         }
        
