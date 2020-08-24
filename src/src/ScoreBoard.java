@@ -37,6 +37,7 @@ public class ScoreBoard extends JPanel implements ActionListener{
 
 	private ArrayList<Score> scorelist; //list of different scores
 	public int now_score;
+	public String game_point;
 	private static final String fscore = "score.dat"; //the name of the file.dat which contains the list
 
 	private boolean newRecord = false; //set to true if a new record is set at the end of a game
@@ -63,7 +64,7 @@ public class ScoreBoard extends JPanel implements ActionListener{
 				scorelist.add(new Score("Looser", 0));
 				updateScoreFile();
 			}catch(IOException e){
-				System.out.print("impossible de cr�er le fichier");
+				System.out.print("impossible de cr�ｿｽer le fichier");
 			}
 		}*/
 
@@ -204,7 +205,12 @@ public class ScoreBoard extends JPanel implements ActionListener{
 		GridBagConstraints c = new GridBagConstraints();
 
 		c.insets = new Insets(10,10,10,10);
-		JLabel jl = new JLabel(String.valueOf(now_score));
+		if(now_score == 0){
+			game_point = "GAME OVER";
+		} else {
+			game_point = String.valueOf(now_score);
+		}
+		JLabel jl = new JLabel(game_point);
 		Myfont.setMyfont(jl);
 		c.gridx = 1;
 		c.gridy = 5;
