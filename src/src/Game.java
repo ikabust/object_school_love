@@ -366,7 +366,7 @@ public class Game extends JPanel implements ActionListener {
 		if(!ingame){
 			timer.stop();
 			Frame frame = Frame.getFrame();
-			frame.gameOver(score, spawned, life);
+			frame.gameOver(limit / 1000, spawned, life);
 			
 		}
 	}
