@@ -103,41 +103,41 @@ public class Rules extends JPanel{
 
 		c.insets = new Insets(0,0,5,15);
 
-		ImageIcon i1 = new ImageIcon(getClass().getResource("/" + Frame.getTheme() + "_bonus3rules.png"));
+		ImageIcon i1 = new ImageIcon(getClass().getResource("/Dog.png"));
 		JLabel jlab = new JLabel(i1);
 		c.fill = GridBagConstraints.BOTH;
 		c.gridy = 0;
 		c.gridx = 1;
 		tab2.add(jlab, c);
 
-		JLabel jlab2 = new JLabel("dog:The more you bump into the dog the more your time limit will approach.");
+		JLabel jlab2 = new JLabel("Dog: The more you bump into the dog \nthe more your time limit will approach.");
 		Myfont.setMyfont(jlab2);
 		c.anchor = GridBagConstraints.WEST;
 		c.gridy = 0;
 		c.gridx = 2;
 		tab2.add(jlab2, c);
 
-		ImageIcon i2 = new ImageIcon(getClass().getResource("/" + Frame.getTheme() + "_bonus2rules.png"));
+		ImageIcon i2 = new ImageIcon(getClass().getResource("/Boy.png"));
 		JLabel jlab3 = new JLabel(i2);
 		c.gridy = 6;
 		c.gridx = 1;
 		tab2.add(jlab3, c);
 
-		JLabel jlab4 = new JLabel("My fate:If you bump into him, it's game over.");
+		JLabel jlab4 = new JLabel("My fate: If you bump into him, it's game over.");
 		Myfont.setMyfont(jlab4);
 		c.anchor = GridBagConstraints.WEST;
 		c.gridy = 6;
 		c.gridx = 2;
 		tab2.add(jlab4, c);
 
-		ImageIcon i3 = new ImageIcon(getClass().getResource("/" + Frame.getTheme() + "_bonus1rules.png"));
+		ImageIcon i3 = new ImageIcon(getClass().getResource("/Bread.png"));
 		JLabel jlab5 = new JLabel(i3);
 		c.anchor = GridBagConstraints.WEST;
 		c.gridy = 7;
 		c.gridx = 1;
 		tab2.add(jlab5, c);
 
-		JLabel jlab6 = new JLabel("obstacle:Aboid it!");
+		JLabel jlab6 = new JLabel("Bread: The bread extends that time limit.");
 		Myfont.setMyfont(jlab6);
 		c.gridy = 7;
 		c.gridx = 2;
