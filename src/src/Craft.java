@@ -41,9 +41,8 @@ public class Craft extends Sprite {
 		height *= 0.5;
 		//image = image.getScaledInstance((int) (width * 0.5), -1, Image.SCALE_SMOOTH);
 		getImageDimensions();
-		
+		loadSoundName("jump.wav");	
 		missilestate = 0;
-		
 		Craft.craft = this;
 		
 	}
@@ -93,6 +92,7 @@ public class Craft extends Sprite {
 			dx = 3;
 		}
 		if (key == KeyEvent.VK_SPACE) {
+			this.playSound();
 			jumpTimer += 1;
 			if(jumpTimer > 2) {
 				jumping = true;
@@ -124,7 +124,7 @@ public class Craft extends Sprite {
 		
 		if (key == KeyEvent.VK_SPACE) {
 			jumpTimer += 1;
-			System.out.print(jumpTimer);
+			// System.out.print(jumpTimer);
 		}
 		if (key == KeyEvent.VK_DOWN) {
 			loadImage("/Girl.png");
