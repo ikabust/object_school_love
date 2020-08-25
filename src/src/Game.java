@@ -258,7 +258,7 @@ public class Game extends JPanel implements ActionListener {
 		g.drawImage(back.getImage(), -back.getPosX(), 0, this);
 		
 		if (back.getPosX() + 500 > back.getWidth()) {
-			if (back.getCount() > 2) {
+			if (back.getCount() > 0) {
 				g.drawImage(back2.getImage(), - back2.getPosX() + back2.getWidth(), 0, this);
 			} else {
 				g.drawImage(back.getImage(), - back.getPosX() + back.getWidth(), 0, this);
@@ -407,7 +407,7 @@ public class Game extends JPanel implements ActionListener {
 		if(ingame) {
 			back.move();
 			back2.move();	
-			if (back.getCount() > 3 && goal == false) {
+			if (back.getCount() > 1 && goal == false) {
 				goal = true;
 				back.setGoalImage();
 			}
