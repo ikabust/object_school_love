@@ -37,7 +37,7 @@ public class ScoreBoard extends JPanel implements ActionListener{
 
 	//private ArrayList<Score> scorelist; //list of different scores
 	public int now_score;
-	public String game_point;
+	public String goal;
 	//private static final String fscore = "score.dat"; //the name of the file.dat which contains the list
 
 	//private boolean newRecord = false; //set to true if a new record is set at the end of a game
@@ -204,19 +204,25 @@ public class ScoreBoard extends JPanel implements ActionListener{
 		int x = scores.size();
 		*/
 		GridBagConstraints c = new GridBagConstraints();
-/*
+
 		c.insets = new Insets(10,10,10,10);
-		if(now_score == 0){
-			game_point = "GAME OVER";
+		if(now_score < 100){
+			goal = "GAME OVER";
 		} else {
-			game_point = String.valueOf(now_score);
+			goal = "GAME CLEAR";
 		}
-		JLabel jl = new JLabel(game_point);*/
+		
 		JLabel jl = new JLabel(String.valueOf(now_score));
 		Myfont.setMyfont(jl);
 		c.gridx = 1;
 		c.gridy = 5;
 		this.add(jl, c);
+		
+		JLabel jm = new JLabel(goal);
+		Myfont.setMyfont(jm);
+		c.gridx = 1;
+		c.gridy = 6;
+		this.add(jm, c);
 /*
 		while(i < x && i < 5){
 			score = scores.get(i).toString();
