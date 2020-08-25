@@ -20,6 +20,7 @@ public class Craft extends Sprite {
 	private double gravity = 0.4;
 	private boolean jumping = false;
 	private int jumpTimer = 0;
+	private int imagenum = 0;
 
 	private ArrayList<Missile> missiles; //list of visible missiles
 	
@@ -51,14 +52,25 @@ public class Craft extends Sprite {
 	 * The craft is limited by the upper and lower bounds of the screen (20 and 264)
 	 */
 	public void move(){
-		
-		x += dx;
-		if (x < 20) {x = 20;} 
-		if (x > 430) {x = 430;}
+		if (imagenum == 0) {
 
-		y += dy;
-		if (y < 20) {y=20;}
-		if (y > 240) {y = 240;}
+			x += dx;
+			if (x < 20) {x = 20;} 
+			if (x > 430) {x = 430;}
+			
+			y += dy;
+			if (y < 20) {y=20;}
+			if (y > 240) {y = 240;}
+		}
+		if (imagenum == 1) {
+			if (x < 20) {x = 20;} 
+			if (x > 430) {x = 430;}
+			
+			y += dy;
+			if (y < 20) {y=20;}
+			if (y > 260) {y = 260;}
+		}
+
 		
 	}
 	
@@ -82,10 +94,18 @@ public class Craft extends Sprite {
 		}
 		if (key == KeyEvent.VK_SPACE) {
 			jumpTimer += 1;
-			if (!jumping) {
-				dy = -10;
+			if(jumpTimer > 2) {
+				jumping = true;
+				jumpTimer = 0;
 			}
-		}		
+			if (!jumping) {
+				dy = -9;
+			}
+		}
+		if (key == KeyEvent.VK_DOWN) {
+			loadImage("/Girl_Down.png");
+			imagenum = 1;
+		}
 	}
 	
 	/*
@@ -103,16 +123,25 @@ public class Craft extends Sprite {
 		}
 		
 		if (key == KeyEvent.VK_SPACE) {
-			jumpTimer = 0;
+			jumpTimer += 1;
+			System.out.print(jumpTimer);
+		}
+		if (key == KeyEvent.VK_DOWN) {
+			loadImage("/Girl.png");
+			imagenum = 0;
 		}
 	}
 
 	public void gravity() { 
 		if (y < 240) {
-			jumping = true;
+			if(jumpTimer >= 2) {
+				jumpTimer = 0;
+				jumping = true;
+			}
 			dy += gravity;
 		} else {
 			jumping = false;
+			jumpTimer = 0;
 		}
 	}
 

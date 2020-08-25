@@ -43,6 +43,7 @@ public class Game extends JPanel implements ActionListener {
 	private Boss boss;    // 繝懊せ
 	
 	private Background back;    // 閭梧勹
+	private Background back2;
 	
 	private int score; //player's score
 	private int life; // player's life
@@ -66,6 +67,8 @@ public class Game extends JPanel implements ActionListener {
 	private boolean paused; //this boolean is set to true when the game is paused
 	
 	private int[][] ennemies = new int[5][4]; //this array is used to know on which y level a wall is visible
+
+	private boolean goal;
 
 	public Game(){
 		
@@ -114,12 +117,15 @@ public class Game extends JPanel implements ActionListener {
 		limit = 30000; // 縺ｨ繧翫≠縺医★10遘偵�ｮ蛻ｶ髯先凾髢�
 		inboss = false;
 		paused = false;
+		goal = false;
 		
 		setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
 			
 		craft = new Craft(ICRAFT_X, ICRAFT_Y);
 		
 		back = new Background();
+		back2 = new Background();
+		back2.setGoalImage();
 		
 		//initialization of the different speeds for the sprites
 		Alien.setSpeed(3);
@@ -252,7 +258,11 @@ public class Game extends JPanel implements ActionListener {
 		g.drawImage(back.getImage(), -back.getPosX(), 0, this);
 		
 		if (back.getPosX() + 500 > back.getWidth()) {
-            g.drawImage(back.getImage(), - back.getPosX() + back.getWidth(), 0, this);
+			if (back.getCount() > 0) {
+				g.drawImage(back2.getImage(), - back2.getPosX() + back2.getWidth(), 0, this);
+			} else {
+				g.drawImage(back.getImage(), - back.getPosX() + back.getWidth(), 0, this);
+			}
         }
 		
 		Graphics2D g2d = (Graphics2D) g;
@@ -394,8 +404,14 @@ public class Game extends JPanel implements ActionListener {
 	 */
 	private void updateBackground(){
 		
-		if(ingame)
-			back.move();		
+		if(ingame) {
+			back.move();
+			back2.move();	
+			if (back.getCount() > 1 && goal == false) {
+				goal = true;
+				back.setGoalImage();
+			}
+		}
 	}
 	
 	/*
@@ -669,7 +685,8 @@ public class Game extends JPanel implements ActionListener {
 	public void updateSpeed(){
 		
 		if(spawned%20==0 && spawned != 0){
-			back.setSpeed((back.getSpeed()+1)); ;
+			back.setSpeed((back.getSpeed()+1));
+			back2.setSpeed((back2.getSpeed()+1));
 			Alien.setSpeed((Alien.getSpeed()+1));
 			Life.setSpeed((Life.getSpeed()+1));
 			spawned++;
