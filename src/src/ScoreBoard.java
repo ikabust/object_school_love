@@ -46,11 +46,11 @@ public class ScoreBoard extends JPanel implements ActionListener{
 	//ObjectOutputStream oos = null; //object to read the score file
 	//ObjectInputStream ois = null; //object to write in the score file
 
-	/*public ScoreBoard(){
+	public ScoreBoard(){
 
 		super(new GridBagLayout());
 
-		scorelist = new ArrayList<Score>();
+		//scorelist = new ArrayList<Score>();
 
 		/*
 		 * Initialization of the score file if it's the first time the game is launched.
@@ -66,10 +66,10 @@ public class ScoreBoard extends JPanel implements ActionListener{
 			}catch(IOException e){
 				System.out.print("impossible de cr�ｿｽer le fichier");
 			}
-		}
+		}*/
 
-		afficherScore();
-	}*/
+		//afficherScore();
+	}
 
 	/*public ArrayList<Score> getScores(){
 
