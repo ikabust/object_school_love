@@ -43,11 +43,13 @@ public class Game extends JPanel implements ActionListener {
 	private Boss boss;    // 繝懊せ
 	
 	private Background back;    // 閭梧勹
+	private Background back2;
 	
 	private int score; //player's score
 	private int life; // player's life
 	private int spawned; //number of aliens that are dead (either killed or just out of the screen)
 	private int limit; // 縲悟宛髯先凾髢薙�埼聞譎る俣縺吶ｋ縺ｪ繧瑛ong縺ｫ邱ｨ髮�縺励∪縺� 螟壼�縺�繧峨ｓ
+	private int real_time;//player`s playtime
 	
 	private boolean ingame; //this boolean is set to false when the player loses
 	private boolean inboss; // this boolean is set to true during the boss phase
@@ -58,7 +60,6 @@ public class Game extends JPanel implements ActionListener {
 	private ArrayList<Wall> walls; //list of visible walls
 	private ArrayList<Life> lives; //list of visible bonus lives
 	private ArrayList<Alien2> aliens2; //list of visible aliens2
-	private ArrayList<Bonus> bonus; //list of visible bonuses
 	
 	private JPanel scorepan; //contains the score and the number of lives for the current game
 	private JLabel limitlab; //谿九ｊ譎る俣陦ｨ遉ｺ
@@ -67,6 +68,8 @@ public class Game extends JPanel implements ActionListener {
 	private boolean paused; //this boolean is set to true when the game is paused
 	
 	private int[][] ennemies = new int[5][4]; //this array is used to know on which y level a wall is visible
+
+	private boolean goal;
 
 	public Game(){
 		
@@ -113,25 +116,27 @@ public class Game extends JPanel implements ActionListener {
 		life = 3; //the player starts the game with 3 lives
 		spawned = 0;
 		limit = 30000; // 縺ｨ繧翫≠縺医★10遘偵�ｮ蛻ｶ髯先凾髢�
+		real_time = 0; // start time = 0s
 		inboss = false;
 		paused = false;
+		goal = false;
 		
 		setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
 			
 		craft = new Craft(ICRAFT_X, ICRAFT_Y);
 		
 		back = new Background();
+		back2 = new Background();
+		back2.setGoalImage();
 		
 		//initialization of the different speeds for the sprites
 		Alien.setSpeed(3);
 		Life.setSpeed(5);
-		Bonus.setSpeed(5);
 		
 		walls = new ArrayList<>();
 		lives = new ArrayList<>();
 		aliens = new ArrayList<>();
 		aliens2 = new ArrayList<>();
-		bonus = new ArrayList<>();
 		
 		initScorepan();
 
@@ -196,14 +201,14 @@ public class Game extends JPanel implements ActionListener {
 		c.gridx = 1;
 		c.anchor = GridBagConstraints.NORTH;
 		scorepan.add(limitlab, c);
-		lifelab = new JLabel("Life : " + life);
-		Myfont.setMyfont(lifelab);
-		if(craft.isImmune()) lifelab.setForeground(Color.white);
-		c.insets = new Insets(3,3,3,80);
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 0;
-		c.anchor = GridBagConstraints.NORTH;
-		scorepan.add(lifelab, c);
+		//lifelab = new JLabel("Life : " + life);
+		//Myfont.setMyfont(lifelab);
+		//if(craft.isImmune()) lifelab.setForeground(Color.white);
+		//c.insets = new Insets(3,3,3,80);
+		//c.fill = GridBagConstraints.BOTH;
+		//c.gridx = 0;
+		//c.anchor = GridBagConstraints.NORTH;
+		//scorepan.add(lifelab, c);
 		
 	}
 	
@@ -255,7 +260,11 @@ public class Game extends JPanel implements ActionListener {
 		g.drawImage(back.getImage(), -back.getPosX(), 0, this);
 		
 		if (back.getPosX() + 500 > back.getWidth()) {
-            g.drawImage(back.getImage(), - back.getPosX() + back.getWidth(), 0, this);
+			if (back.getCount() > 0) {
+				g.drawImage(back2.getImage(), - back2.getPosX() + back2.getWidth(), 0, this);
+			} else {
+				g.drawImage(back.getImage(), - back.getPosX() + back.getWidth(), 0, this);
+			}
         }
 		
 		Graphics2D g2d = (Graphics2D) g;
@@ -304,12 +313,6 @@ public class Game extends JPanel implements ActionListener {
         		g2d.drawImage(l.getImage(), l.getX(), l.getY(), this);
         }
         
-        //drawing of bonuses
-        for (Bonus b : bonus){
-        	if(b.isVisible())
-        		g2d.drawImage(b.getImage(), b.getX(), b.getY(), this);
-        }
-        
         //drawing of aliens2
         for (Alien2 a : aliens2){
         	if(a.isVisible())
@@ -353,14 +356,13 @@ public class Game extends JPanel implements ActionListener {
 	         updateAliens();
 	        updateWalls();
 	        updateLives();
-	        updateBonus();
 	        // updateAliens2();
         }
         
         if(inboss) //in boss phase, there only is the boss and its missiles 
         	updateBoss();
         
-        updateSpeed(); //upgrade the speed of some sprite to increase the difficulty of the game
+        //updateSpeed(); //upgrade the speed of some sprite to increase the difficulty of the game
         
         checkCollisions(); //the collisions between sprites are checked to see if they are still visible
         
@@ -376,7 +378,7 @@ public class Game extends JPanel implements ActionListener {
 		if(!ingame){
 			timer.stop();
 			Frame frame = Frame.getFrame();
-			frame.gameOver(score, spawned, life);
+			frame.gameOver(real_time / 1000, spawned, life);
 			
 		}
 	}
@@ -404,8 +406,20 @@ public class Game extends JPanel implements ActionListener {
 	 */
 	private void updateBackground(){
 		
-		if(ingame)
-			back.move();		
+		if(ingame) {
+			back.move();
+			back2.move();	
+			if (back.getCount() > 1 && goal == false) {
+				goal = true;
+				back.setGoalImage();
+			}
+			if (goal && back.getPosX() + 500 > back.getWidth()) {
+				real_time += 100 * 1000;
+				real_time += limit;
+				ingame = false;
+				//System.out.println("ゴール");
+			}
+		}
 	}
 	
 	/*
@@ -470,7 +484,6 @@ public class Game extends JPanel implements ActionListener {
 		aliens2.removeAll(aliens2);
 		lives.removeAll(lives);
 		walls.removeAll(walls);
-		bonus.removeAll(bonus);
 		
 		boss = new Boss(450,142);
 		
@@ -557,27 +570,27 @@ public class Game extends JPanel implements ActionListener {
 		Random rand = new Random();
 		int spawn = rand.nextInt(1000);
 		
-		if(spawn > 995 && walls.isEmpty() && craft.getShoot() > 3){
-			int rd = (int)(Math.random()*5); //this determines the line where there will be no wall
-			
-			if(rd != 0){
-				walls.add(new Wall(400, 20));
-				ennemies[0][2] = 1;} //when a wall is in a line, it is 	registered in the enemies array
-			if(rd != 1) {
-				walls.add(new Wall(400, 81));
-				ennemies[1][2] = 1;}
-			if(rd != 2) {
-				walls.add(new Wall(400, 142));
-				ennemies[2][2] = 1;}
-			if(rd != 3) {
-				walls.add(new Wall(400, 203));
-				ennemies[3][2] = 1;}
-			if(rd != 4) {
-				walls.add(new Wall(400, 264));
-				ennemies[4][2] = 1;}
-		}
+		//if(spawn > 995 && walls.isEmpty() && craft.getShoot() > 3){
+		//	int rd = (int)(Math.random()*5); //this determines the line where there will be no wall
+		//	
+		//	if(rd != 0){
+		//		walls.add(new Wall(400, 20));
+		//		ennemies[0][2] = 1;} //when a wall is in a line, it is 	registered in the enemies array
+		//	if(rd != 1) {
+		//		walls.add(new Wall(400, 81));
+		//		ennemies[1][2] = 1;}
+		//	if(rd != 2) {
+		//		walls.add(new Wall(400, 142));
+		//		ennemies[2][2] = 1;}
+		//	if(rd != 3) {
+		//		walls.add(new Wall(400, 203));
+		//		ennemies[3][2] = 1;}
+		//	if(rd != 4) {
+		//		walls.add(new Wall(400, 264));
+		//		ennemies[4][2] = 1;}
+		//}
 		
-		if(spawn > 990 && walls.size()<=2){
+		if(spawn > 990 && walls.size() < 2){
 			int posY = rand.nextInt(B_HEIGHT);
 			int posX = rand.nextInt(B_WIDTH) + 400;
 			
@@ -644,48 +657,6 @@ public class Game extends JPanel implements ActionListener {
 	}
 	
 	/*
-	 * Update of the bonus position.
-	 * The kind of bonus is randomly selected.
-	 * There is three kind of bonuses that spawn in certain conditions.
-	 */
-	public void updateBonus(){
-		
-		Random rand = new Random();
-		int spawn = rand.nextInt(1000);
-		
-		if(spawn > 995 && bonus.size() == 0){
-			int posY = rand.nextInt(B_HEIGHT);
-		
-			if(posY < 76) posY = 20;
-			else if(posY < 132) posY = 81;
-			else if(posY < 188) posY = 142;
-			else if(posY < 244) posY = 203;
-			else posY = 264;
-			
-			
-			Random rand2 = new Random();
-			int bonustype = rand2.nextInt(3);
-			if (bonustype == 1)
-				bonus.add(new Bonus(B_WIDTH, posY, 1));
-			else if(bonustype == 2 && craft.getShoot() < 20 && craft.getShoot() > 4) //this is the second kind of missile, obtainable after having the missile updated to the fourth rank
-				bonus.add(new Bonus(B_WIDTH, posY, 2));
-			else if(bonustype == 0 && !craft.isImmune()) //this bonus give immunity to the next damage. As long as the player preserve the immunity, this bonus will not spawn
-				bonus.add(new Bonus(B_WIDTH, posY, 3));
-				
-			
-		}
-		
-		for(int i = 0; i < bonus.size(); i++){
-			Bonus b = bonus.get(i);
-			if(b.isVisible())
-				b.move();
-			else
-				bonus.remove(i);
-		}
-		
-	}
-	
-	/*
 	 * Update of the position of the second kind of alien
 	 */
 	public void updateAliens2(){
@@ -722,7 +693,8 @@ public class Game extends JPanel implements ActionListener {
 	public void updateSpeed(){
 		
 		if(spawned%20==0 && spawned != 0){
-			back.setSpeed((back.getSpeed()+1)); ;
+			back.setSpeed((back.getSpeed()+1));
+			back2.setSpeed((back2.getSpeed()+1));
 			Alien.setSpeed((Alien.getSpeed()+1));
 			Life.setSpeed((Life.getSpeed()+1));
 			spawned++;
@@ -733,6 +705,7 @@ public class Game extends JPanel implements ActionListener {
 	public void updateLimit() {
 		if (!paused) {
 			limit -= DELAY;
+			real_time += DELAY;
 			if (limit % 1000 < DELAY) {
 				updateScorepan();
 			}
@@ -763,10 +736,9 @@ public class Game extends JPanel implements ActionListener {
             		craft.setImmune(false); //if the craft was immune, the player doesn't lose a life
             		updateScorepan();}
             	else{
-//            		life--; //the craft was not immune, the player loses a life
             		limit -= 2000;
-//            		updateScorepan();
-            		updateLimit();
+					updateLimit();
+					updateScorepan();
             		craft.downShoot(); //and the missile rank is downgraded
             		if(craft.getShoot() > 15)
                     	craft.setShoot(2);
@@ -786,7 +758,6 @@ public class Game extends JPanel implements ActionListener {
         		else{
         			limit -= 5000;
         			updateLimit();
-//        			life -= 2; //the player lose two lives if he touches this kind of alien
         			craft.downShoot();
         			if(craft.getShoot() > 15)
                     	craft.setShoot(2);
@@ -806,7 +777,8 @@ public class Game extends JPanel implements ActionListener {
         		}
         		else{
         			craft.setVisible(false); //the player lose the game if he touches a wall
-        			wall.playSound();
+					wall.playSound();
+					limit = 0;
         			ingame = false; //the game end
         		}
         	}
@@ -820,25 +792,6 @@ public class Game extends JPanel implements ActionListener {
         		updateScorepan();
         		l.setVisible(false);
         		l.playSound();
-        	}
-        }
-        
-        //collision between the craft and the bonuses 
-        for(Bonus b : bonus){
-        	Rectangle rB = b.getBounds();
-        	if(rC.intersects(rB)){
-        		b.setVisible(false);
-        		if(b.getBonusType() == 2)
-        			craft.setShoot(20); //this is the second kind of missile
-        		else if(b.getBonusType() == 1){
-        			craft.upShoot(); //this updates the rank of the missiles 
-        			if(craft.getShoot() == 21)
-        				craft.setShoot(4); //the player can choose to downgrade the missile rank
-        			if(craft.getShoot() == 6)
-        				craft.setShoot(5);} //5 is the maximum rank for the missiles
-        		else{
-        			craft.setImmune(true); //set immunity to the next collision
-        			updateScorepan();}
         	}
         }
        

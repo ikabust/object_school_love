@@ -1,6 +1,5 @@
 package src;
 
-// import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -14,13 +13,14 @@ public class Craft extends Sprite {
 	
 	private static Craft craft;
 	
-	private int dx; //キャラの位置
+	private int dx; //繧ｭ繝｣繝ｩ縺ｮ菴咲ｽｮ
 	private double dy;
 	private int xv = 5;
 	private int yv = 10;
 	private double gravity = 0.4;
 	private boolean jumping = false;
 	private int jumpTimer = 0;
+	private int imagenum = 0;
 
 	private ArrayList<Missile> missiles; //list of visible missiles
 	
@@ -41,9 +41,8 @@ public class Craft extends Sprite {
 		height *= 0.5;
 		//image = image.getScaledInstance((int) (width * 0.5), -1, Image.SCALE_SMOOTH);
 		getImageDimensions();
-		
+		loadSoundName("jump.wav");	
 		missilestate = 0;
-		
 		Craft.craft = this;
 		
 	}
@@ -52,14 +51,25 @@ public class Craft extends Sprite {
 	 * The craft is limited by the upper and lower bounds of the screen (20 and 264)
 	 */
 	public void move(){
-		
-		x += dx;
-		if (x < 20) {x = 20;} 
-		if (x > 430) {x = 430;}
+		if (imagenum == 0) {
 
-		y += dy;
-		if (y < 20) {y=20;}
-		if (y > 264) {y = 264;}
+			x += dx;
+			if (x < 20) {x = 20;} 
+			if (x > 430) {x = 430;}
+			
+			y += dy;
+			if (y < 20) {y=20;}
+			if (y > 240) {y = 240;}
+		}
+		if (imagenum == 1) {
+			if (x < 20) {x = 20;} 
+			if (x > 430) {x = 430;}
+			
+			y += dy;
+			if (y < 20) {y=20;}
+			if (y > 260) {y = 260;}
+		}
+
 		
 	}
 	
@@ -72,7 +82,7 @@ public class Craft extends Sprite {
 	 * While the key is pressed, increments or decrements the y coordinate of the craft
 	 */
 	public void keyPressed(KeyEvent e){
-		// 横移動に書き換える
+		// 讓ｪ遘ｻ蜍輔↓譖ｸ縺肴鋤縺医ｋ
 		int key = e.getKeyCode();
 		
 		if (key == KeyEvent.VK_LEFT) {
@@ -82,18 +92,27 @@ public class Craft extends Sprite {
 			dx = 3;
 		}
 		if (key == KeyEvent.VK_SPACE) {
+			this.playSound();
 			jumpTimer += 1;
-			if (!jumping) {
-				dy = -10;
+			if(jumpTimer > 2) {
+				jumping = true;
+				jumpTimer = 0;
 			}
-		}		
+			if (!jumping) {
+				dy = -9;
+			}
+		}
+		if (key == KeyEvent.VK_DOWN) {
+			loadImage("/Girl_Down.png");
+			imagenum = 1;
+		}
 	}
 	
 	/*
 	 * The fire method is only called on the release of the space key to avoid a flooding of missiles
 	 */
 	public void keyReleased(KeyEvent e){
-		// ジャンプ処理追加しよう
+		// 繧ｸ繝｣繝ｳ繝怜�ｦ逅�霑ｽ蜉�縺励ｈ縺�
 		int key = e.getKeyCode();
 		
 		if (key == KeyEvent.VK_LEFT) {
@@ -104,16 +123,25 @@ public class Craft extends Sprite {
 		}
 		
 		if (key == KeyEvent.VK_SPACE) {
-			jumpTimer = 0;
+			jumpTimer += 1;
+			// System.out.print(jumpTimer);
+		}
+		if (key == KeyEvent.VK_DOWN) {
+			loadImage("/Girl.png");
+			imagenum = 0;
 		}
 	}
 
 	public void gravity() { 
-		if (y < 264) {
-			jumping = true;
+		if (y < 240) {
+			if(jumpTimer >= 2) {
+				jumpTimer = 0;
+				jumping = true;
+			}
 			dy += gravity;
 		} else {
 			jumping = false;
+			jumpTimer = 0;
 		}
 	}
 
@@ -122,7 +150,7 @@ public class Craft extends Sprite {
 	 * There is 7 different states for the missiles
 	 * A switch is used to define the kind and the number of missiles to launch
 	 */
-	// 打つだからいらない？
+	// 謇薙▽縺�縺九ｉ縺�繧峨↑縺�ｼ�
 	public void fire(){
 		
 		switch(missilestate)

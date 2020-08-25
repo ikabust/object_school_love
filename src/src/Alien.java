@@ -19,7 +19,7 @@ public class Alien extends Sprite{
 		loadImage("/Dog.png");
 		getImageDimensions();
 		
-		loadSoundName("magicarpe.wav");		
+		loadSoundName("dog.wav");		
 	}
 	/*
 	 * Increment of the x coordinate of aliens for going from right to left 

@@ -1,7 +1,11 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+>>>>>>> origin/mainchara
+=======
 >>>>>>> a866d5bb6324854a6dfa5a03e0d1ed9c437be2a2
+>>>>>>> 6ff39a70f24cea0f7bb01d547659ef5ea9908b82
 <?xml version="1.0" encoding="ASCII"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_0zb1QdfdEeqCs_75S8XGlA" elementId="org.eclipse.e4.legacy.ide.application" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_0zb1QtfdEeqCs_75S8XGlA" bindingContexts="_0zb1RNfdEeqCs_75S8XGlA">
   <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workbench>&#xD;&#xA;&lt;mruList/>&#xD;&#xA;&lt;/workbench>"/>
@@ -4699,4 +4703,8 @@
 </application:Application>
 >>>>>>> d58bcd3e1ba6ed19fc541f7eb96cb5a3484061be
 =======
+<<<<<<< HEAD
+>>>>>>> origin/mainchara
+=======
 >>>>>>> a866d5bb6324854a6dfa5a03e0d1ed9c437be2a2
+>>>>>>> 6ff39a70f24cea0f7bb01d547659ef5ea9908b82

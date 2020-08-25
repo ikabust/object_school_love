@@ -8,4 +8,8 @@
 <<<<<<< HEAD
 =======
 2020-08-06 21:10:36,821 [Worker-4: Loading available Gradle versions] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+<<<<<<< HEAD
+>>>>>>> origin/mainchara
+=======
 >>>>>>> a866d5bb6324854a6dfa5a03e0d1ed9c437be2a2
+>>>>>>> 6ff39a70f24cea0f7bb01d547659ef5ea9908b82
