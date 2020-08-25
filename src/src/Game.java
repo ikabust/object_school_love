@@ -415,6 +415,7 @@ public class Game extends JPanel implements ActionListener {
 			}
 			if (goal && back.getPosX() + 500 > back.getWidth()) {
 				real_time += 100 * 1000;
+				real_time += limit;
 				ingame = false;
 				//System.out.println("ゴール");
 			}
