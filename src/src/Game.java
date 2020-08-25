@@ -43,13 +43,11 @@ public class Game extends JPanel implements ActionListener {
 	private Boss boss;    // 繝懊せ
 	
 	private Background back;    // 閭梧勹
-	private Background back2;
 	
 	private int score; //player's score
 	private int life; // player's life
 	private int spawned; //number of aliens that are dead (either killed or just out of the screen)
 	private int limit; // 縲悟宛髯先凾髢薙�埼聞譎る俣縺吶ｋ縺ｪ繧瑛ong縺ｫ邱ｨ髮�縺励∪縺� 螟壼�縺�繧峨ｓ
-	private int real_time;//player`s playtime
 	
 	private boolean ingame; //this boolean is set to false when the player loses
 	private boolean inboss; // this boolean is set to true during the boss phase
@@ -68,8 +66,6 @@ public class Game extends JPanel implements ActionListener {
 	private boolean paused; //this boolean is set to true when the game is paused
 	
 	private int[][] ennemies = new int[5][4]; //this array is used to know on which y level a wall is visible
-
-	private boolean goal;
 
 	public Game(){
 		
@@ -116,18 +112,14 @@ public class Game extends JPanel implements ActionListener {
 		life = 3; //the player starts the game with 3 lives
 		spawned = 0;
 		limit = 30000; // 縺ｨ繧翫≠縺医★10遘偵�ｮ蛻ｶ髯先凾髢�
-		real_time = 0; // start time = 0s
 		inboss = false;
 		paused = false;
-		goal = false;
 		
 		setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
 			
 		craft = new Craft(ICRAFT_X, ICRAFT_Y);
 		
 		back = new Background();
-		back2 = new Background();
-		back2.setGoalImage();
 		
 		//initialization of the different speeds for the sprites
 		Alien.setSpeed(3);
@@ -260,11 +252,7 @@ public class Game extends JPanel implements ActionListener {
 		g.drawImage(back.getImage(), -back.getPosX(), 0, this);
 		
 		if (back.getPosX() + 500 > back.getWidth()) {
-			if (back.getCount() > 0) {
-				g.drawImage(back2.getImage(), - back2.getPosX() + back2.getWidth(), 0, this);
-			} else {
-				g.drawImage(back.getImage(), - back.getPosX() + back.getWidth(), 0, this);
-			}
+            g.drawImage(back.getImage(), - back.getPosX() + back.getWidth(), 0, this);
         }
 		
 		Graphics2D g2d = (Graphics2D) g;
@@ -362,7 +350,7 @@ public class Game extends JPanel implements ActionListener {
         if(inboss) //in boss phase, there only is the boss and its missiles 
         	updateBoss();
         
-        //updateSpeed(); //upgrade the speed of some sprite to increase the difficulty of the game
+        updateSpeed(); //upgrade the speed of some sprite to increase the difficulty of the game
         
         checkCollisions(); //the collisions between sprites are checked to see if they are still visible
         
@@ -378,7 +366,7 @@ public class Game extends JPanel implements ActionListener {
 		if(!ingame){
 			timer.stop();
 			Frame frame = Frame.getFrame();
-			frame.gameOver(real_time / 1000, spawned, life);
+			frame.gameOver(limit / 1000, spawned, life);
 			
 		}
 	}
@@ -406,19 +394,8 @@ public class Game extends JPanel implements ActionListener {
 	 */
 	private void updateBackground(){
 		
-		if(ingame) {
-			back.move();
-			back2.move();	
-			if (back.getCount() > 1 && goal == false) {
-				goal = true;
-				back.setGoalImage();
-			}
-			if (goal && back.getPosX() + 500 > back.getWidth()) {
-				real_time += 100 * 1000;
-				ingame = false;
-				//System.out.println("ゴール");
-			}
-		}
+		if(ingame)
+			back.move();		
 	}
 	
 	/*
@@ -692,8 +669,7 @@ public class Game extends JPanel implements ActionListener {
 	public void updateSpeed(){
 		
 		if(spawned%20==0 && spawned != 0){
-			back.setSpeed((back.getSpeed()+1));
-			back2.setSpeed((back2.getSpeed()+1));
+			back.setSpeed((back.getSpeed()+1)); ;
 			Alien.setSpeed((Alien.getSpeed()+1));
 			Life.setSpeed((Life.getSpeed()+1));
 			spawned++;
@@ -704,7 +680,6 @@ public class Game extends JPanel implements ActionListener {
 	public void updateLimit() {
 		if (!paused) {
 			limit -= DELAY;
-			real_time += DELAY;
 			if (limit % 1000 < DELAY) {
 				updateScorepan();
 			}
