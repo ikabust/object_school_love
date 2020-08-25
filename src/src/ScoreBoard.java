@@ -109,7 +109,7 @@ public class ScoreBoard extends JPanel implements ActionListener{
 					break;
 				}
 			}*/
-
+		now_score = score;
 		afficherScore();
 	}
 
@@ -193,7 +193,7 @@ public class ScoreBoard extends JPanel implements ActionListener{
 	 */
 	public void afficherScore(){
 		
-		ScoreComparator comparator = new ScoreComparator();
+		//ScoreComparator comparator = new ScoreComparator();
 		this.removeAll();
 
 		/*String score;
@@ -204,14 +204,15 @@ public class ScoreBoard extends JPanel implements ActionListener{
 		int x = scores.size();
 		*/
 		GridBagConstraints c = new GridBagConstraints();
-
+/*
 		c.insets = new Insets(10,10,10,10);
 		if(now_score == 0){
 			game_point = "GAME OVER";
 		} else {
 			game_point = String.valueOf(now_score);
 		}
-		JLabel jl = new JLabel(game_point);
+		JLabel jl = new JLabel(game_point);*/
+		JLabel jl = new JLabel(String.valueOf(now_score));
 		Myfont.setMyfont(jl);
 		c.gridx = 1;
 		c.gridy = 5;
@@ -286,7 +287,7 @@ public class ScoreBoard extends JPanel implements ActionListener{
 	 * http://forum.codecall.net/topic/50071-making-a-simple-high-score-system/
 	 * This comparator sorts the scores in descending order.
 	 */
-	class ScoreComparator implements Comparator<Score>{
+	/*class ScoreComparator implements Comparator<Score>{
 
 		public int compare(Score s1, Score s2){
 			int score1 = s1.getScore();
@@ -300,7 +301,7 @@ public class ScoreBoard extends JPanel implements ActionListener{
 			else
 				return 0;
 		}
-	}
+	}*/
 
 	/*
 	 * This method is used to paint the background image of the menu
