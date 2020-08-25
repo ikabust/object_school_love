@@ -35,18 +35,18 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class ScoreBoard extends JPanel implements ActionListener{
 
-	private ArrayList<Score> scorelist; //list of different scores
+	//private ArrayList<Score> scorelist; //list of different scores
 	public int now_score;
 	public String game_point;
-	private static final String fscore = "score.dat"; //the name of the file.dat which contains the list
+	//private static final String fscore = "score.dat"; //the name of the file.dat which contains the list
 
-	private boolean newRecord = false; //set to true if a new record is set at the end of a game
-	private int index = 0; //to know where the new score is (to make the font red)
+	//private boolean newRecord = false; //set to true if a new record is set at the end of a game
+	//private int index = 0; //to know where the new score is (to make the font red)
 
-	ObjectOutputStream oos = null; //object to read the score file
-	ObjectInputStream ois = null; //object to write in the score file
+	//ObjectOutputStream oos = null; //object to read the score file
+	//ObjectInputStream ois = null; //object to write in the score file
 
-	public ScoreBoard(){
+	/*public ScoreBoard(){
 
 		super(new GridBagLayout());
 
@@ -66,32 +66,32 @@ public class ScoreBoard extends JPanel implements ActionListener{
 			}catch(IOException e){
 				System.out.print("impossible de cr�ｿｽer le fichier");
 			}
-		}*/
+		}
 
 		afficherScore();
-	}
+	}*/
 
-	public ArrayList<Score> getScores(){
+	/*public ArrayList<Score> getScores(){
 
 		loadScoreFile();
 		return scorelist;
 
-	}
+	}*/
 
 	/*
 	 * This method is used to sort the scores in the scorelist
 	 */
-	public void sort(){
+	/*public void sort(){
 		ScoreComparator comparator = new ScoreComparator();
 		Collections.sort(scorelist,comparator);
-	}
+	}*/
 
 	/*
 	 * This function add a new score in the list.
 	 * The board only print the first five better scores (newRecord set to false on the other hand)
 	 */
 	public void addScore(String playerName, int score){
-
+/*
 		loadScoreFile();
 		sort();
 		Iterator<Score> i = scorelist.iterator();
@@ -108,7 +108,7 @@ public class ScoreBoard extends JPanel implements ActionListener{
 						newRecord = false;
 					break;
 				}
-			}
+			}*/
 
 		afficherScore();
 	}
@@ -118,7 +118,7 @@ public class ScoreBoard extends JPanel implements ActionListener{
 	 * to make its font red if its a new best score.
 	 * The score objects are compared (a score object is a player name and a score).
 	 */
-	public int getIndex(Score score){
+	/*public int getIndex(Score score){
 
 		int i =0;
 
@@ -129,14 +129,14 @@ public class ScoreBoard extends JPanel implements ActionListener{
 
 		return 0;
 
-	}
+	}*/
 
 	/*
 	 * Code taken from this website :
 	 * http://forum.codecall.net/topic/50071-making-a-simple-high-score-system/
 	 * This method load the arraylist from the file to the scorelist object
 	 */
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	public void loadScoreFile(){
 
 		try{
@@ -159,14 +159,14 @@ public class ScoreBoard extends JPanel implements ActionListener{
         	}
         }
 
-	}
+	}*/
 
 	/*
 	 * Code taken from this website :
 	 * http://forum.codecall.net/topic/50071-making-a-simple-high-score-system/
 	 * This method load the arraylist from scorelist object and write it in the score file.
 	 */
-	public void updateScoreFile(){
+	/*public void updateScoreFile(){
 
 		try{
 			oos = new ObjectOutputStream(new FileOutputStream(fscore));
@@ -185,23 +185,24 @@ public class ScoreBoard extends JPanel implements ActionListener{
         		System.out.println("[Laad] IO Error: " + e.getMessage());
         	}
         }
-	}
+	}*/
 
 	/*
 	 * The first five scores are displayed at the end of the game.
 	 * They are JLabel managed by a GridBagLayout.
 	 */
 	public void afficherScore(){
-
+		
+		ScoreComparator comparator = new ScoreComparator();
 		this.removeAll();
 
-		String score;
+		/*String score;
 		ArrayList<Score> scores;
 		scores = getScores();
 
 		int i = 0;
 		int x = scores.size();
-
+		*/
 		GridBagConstraints c = new GridBagConstraints();
 
 		c.insets = new Insets(10,10,10,10);
