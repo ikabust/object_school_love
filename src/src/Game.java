@@ -362,7 +362,7 @@ public class Game extends JPanel implements ActionListener {
         if(inboss) //in boss phase, there only is the boss and its missiles 
         	updateBoss();
         
-        updateSpeed(); //upgrade the speed of some sprite to increase the difficulty of the game
+        //updateSpeed(); //upgrade the speed of some sprite to increase the difficulty of the game
         
         checkCollisions(); //the collisions between sprites are checked to see if they are still visible
         
@@ -412,6 +412,11 @@ public class Game extends JPanel implements ActionListener {
 			if (back.getCount() > 1 && goal == false) {
 				goal = true;
 				back.setGoalImage();
+			}
+			if (goal && back.getPosX() + 500 > back.getWidth()) {
+				real_time += 100 * 1000;
+				ingame = false;
+				//System.out.println("ゴール");
 			}
 		}
 	}
