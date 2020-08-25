@@ -14,7 +14,7 @@ public class Life extends Sprite{
 	}
 	
 	public void initLife(){
-		loadImage("/bread.png");
+		loadImage("/Bread.png");
 		getImageDimensions();
 		loadSoundName("getTime.wav");
 	}
