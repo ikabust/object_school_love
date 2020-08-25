@@ -569,27 +569,27 @@ public class Game extends JPanel implements ActionListener {
 		Random rand = new Random();
 		int spawn = rand.nextInt(1000);
 		
-		if(spawn > 995 && walls.isEmpty() && craft.getShoot() > 3){
-			int rd = (int)(Math.random()*5); //this determines the line where there will be no wall
-			
-			if(rd != 0){
-				walls.add(new Wall(400, 20));
-				ennemies[0][2] = 1;} //when a wall is in a line, it is 	registered in the enemies array
-			if(rd != 1) {
-				walls.add(new Wall(400, 81));
-				ennemies[1][2] = 1;}
-			if(rd != 2) {
-				walls.add(new Wall(400, 142));
-				ennemies[2][2] = 1;}
-			if(rd != 3) {
-				walls.add(new Wall(400, 203));
-				ennemies[3][2] = 1;}
-			if(rd != 4) {
-				walls.add(new Wall(400, 264));
-				ennemies[4][2] = 1;}
-		}
+		//if(spawn > 995 && walls.isEmpty() && craft.getShoot() > 3){
+		//	int rd = (int)(Math.random()*5); //this determines the line where there will be no wall
+		//	
+		//	if(rd != 0){
+		//		walls.add(new Wall(400, 20));
+		//		ennemies[0][2] = 1;} //when a wall is in a line, it is 	registered in the enemies array
+		//	if(rd != 1) {
+		//		walls.add(new Wall(400, 81));
+		//		ennemies[1][2] = 1;}
+		//	if(rd != 2) {
+		//		walls.add(new Wall(400, 142));
+		//		ennemies[2][2] = 1;}
+		//	if(rd != 3) {
+		//		walls.add(new Wall(400, 203));
+		//		ennemies[3][2] = 1;}
+		//	if(rd != 4) {
+		//		walls.add(new Wall(400, 264));
+		//		ennemies[4][2] = 1;}
+		//}
 		
-		if(spawn > 990 && walls.size()<=2){
+		if(spawn > 990 && walls.size() < 2){
 			int posY = rand.nextInt(B_HEIGHT);
 			int posX = rand.nextInt(B_WIDTH) + 400;
 			
