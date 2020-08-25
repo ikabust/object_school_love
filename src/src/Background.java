@@ -12,14 +12,16 @@ public class Background {
 	private int pos_x; //initial position of the background
 	private Image image;
 	private int speed; //speed of the movement
+	private int count;
 	// プレイヤーの動きによってスピードを変えたら良さそう
 	public Background(){
 		
 		ImageIcon ii = new ImageIcon(getClass().getResource("/Back.png"));
         image = ii.getImage();
         
-        speed = 1;
-		
+		speed = 1;
+		count = 0;
+
 		pos_x = this.getWidth() - 500;
 		
 	}
@@ -50,8 +52,11 @@ public class Background {
 	  */
 	 public void move(){
 		 
-		if(pos_x>image.getWidth(null))
+		if(pos_x>image.getWidth(null)) {
 			pos_x = 0;
+			count++;
+		}
+		
 			
 		pos_x += speed ;
 		 
@@ -63,5 +68,14 @@ public class Background {
 	 
 	public void setSpeed(int speed){
 		this.speed = speed;
+	}
+
+	public void setGoalImage() {
+		ImageIcon ii = new ImageIcon(getClass().getResource("/BackEnd.png"));
+        image = ii.getImage();
+	}
+
+	public int getCount() {
+		return count;
 	}
 }
