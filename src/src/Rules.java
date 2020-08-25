@@ -76,20 +76,25 @@ public class Rules extends JPanel{
 		c.gridy = 1;
 		tab1.add(jinst1, c);
 
-		JLabel jinst2 = new JLabel("Use SPACE to jump");
+		JLabel jinst2 = new JLabel("Use Down Arrow Key to squat");
 		Myfont.setMyfont(jinst2);
 		c.gridy = 2;
 		tab1.add(jinst2, c);
 
-		JLabel jinst3 = new JLabel("Use P to pause the game");
+		JLabel jinst3 = new JLabel("Use SPACE to jump");
 		Myfont.setMyfont(jinst3);
 		c.gridy = 3;
 		tab1.add(jinst3, c);
 
-		JLabel jinst4 = new JLabel("This game has a time limit.  Aim for your goal!");
+		JLabel jinst4 = new JLabel("Use P to pause the game");
 		Myfont.setMyfont(jinst4);
 		c.gridy = 4;
 		tab1.add(jinst4, c);
+		
+		JLabel jinst5 = new JLabel("This game has a time limit.  Aim for your goal!");
+		Myfont.setMyfont(jinst5);
+		c.gridy = 5;
+		tab1.add(jinst5, c);
 
 	}
 
