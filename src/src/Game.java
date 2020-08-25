@@ -49,6 +49,7 @@ public class Game extends JPanel implements ActionListener {
 	private int life; // player's life
 	private int spawned; //number of aliens that are dead (either killed or just out of the screen)
 	private int limit; // 縲悟宛髯先凾髢薙�埼聞譎る俣縺吶ｋ縺ｪ繧瑛ong縺ｫ邱ｨ髮�縺励∪縺� 螟壼�縺�繧峨ｓ
+	private int real_time;//player`s playtime
 	
 	private boolean ingame; //this boolean is set to false when the player loses
 	private boolean inboss; // this boolean is set to true during the boss phase
@@ -115,6 +116,7 @@ public class Game extends JPanel implements ActionListener {
 		life = 3; //the player starts the game with 3 lives
 		spawned = 0;
 		limit = 30000; // 縺ｨ繧翫≠縺医★10遘偵�ｮ蛻ｶ髯先凾髢�
+		real_time = 0; // start time = 0s
 		inboss = false;
 		paused = false;
 		goal = false;
@@ -376,7 +378,7 @@ public class Game extends JPanel implements ActionListener {
 		if(!ingame){
 			timer.stop();
 			Frame frame = Frame.getFrame();
-			frame.gameOver(limit / 1000, spawned, life);
+			frame.gameOver(real_time / 1000, spawned, life);
 			
 		}
 	}
@@ -697,6 +699,7 @@ public class Game extends JPanel implements ActionListener {
 	public void updateLimit() {
 		if (!paused) {
 			limit -= DELAY;
+			real_time += DELAY;
 			if (limit % 1000 < DELAY) {
 				updateScorepan();
 			}
